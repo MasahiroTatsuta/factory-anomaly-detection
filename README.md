@@ -4,7 +4,7 @@ Factory Anomaly Detection は、MIMII Dataset（バルブ音響データ）を�
 
 AIによる自動判定、高精度なメルスペクトログラム可視化、そしてマルチマシンのバルク評価機能を、セキュアなDockerコンテナ環境で実現しました。
 
-🔗 https://huggingface.co/spaces/Masaroo/factory-anomaly-detection
+🔗 [https://huggingface.co/spaces/Masaroo/factory-anomaly-detection](https://masaroo-factory-anomaly-detection.hf.space/)
 
 ---
 
