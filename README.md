@@ -23,6 +23,7 @@ AIによる自動判定、高精度なメルスペクトログラム可視化、
 │   └── abnormal/                     # id_00, 02, 04, 06 からランダム抽出した異常音
 │
 ├── architecture.png                  # システム環境構成図
+├── mimii_transformer.py              # mimiiデータセット取得&特徴量変換&Transformer学習
 ├── app.py                            # FastAPI AI Service (推論 & 前処理バックエンド)
 ├── ui.py                             # Streamlit Frontend (WebUIフロントエンド)
 ├── vit_anomaly_detection.pth         # 学習済み Vision Transformer (ViT-Tiny) モデル重み
