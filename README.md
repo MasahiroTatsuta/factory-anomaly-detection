@@ -1,6 +1,6 @@
 # Factory Anomaly Detection - Integrated Audio Analysis & AI Factory Monitoring System
 
-Factory Anomaly Detection は、MIMII Dataset（バルブ音響データ）を活用した、工場管理者・設備保全エンジニア向けの次世代機械音響解析・異常検知プラットフォームです。
+Factory Anomaly Detection は、MIMII Dataset（バルブ音響データ）を活用した、工場管理者・設備保全エンジニア向けの機械音響解析・異常検知プラットフォームです。
 
 AIによる自動判定、高精度なメルスペクトログラム可視化、そしてマルチマシンのバルク評価機能を、セキュアなDockerコンテナ環境で実現しました。
 
