@@ -48,12 +48,30 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Factory Anomaly Detection API", lifespan=lifespan)
 
 # --- 3. 前処理関数の定義 ---
+# def preprocess_audio(file_bytes):
+#     y, sr = librosa.load(io.BytesIO(file_bytes), sr=16000)
+#     mel_spect = librosa.feature.melspectrogram(y=y, sr=sr, n_fft=1024, hop_length=512, n_mels=128)
+#     mel_spect_db = librosa.power_to_db(mel_spect, ref=np.max)
+#     feature_tensor = torch.tensor(mel_spect_db, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
+#     return feature_tensor
+
+# FastAPIのコード（app.pyなど）の前処理部分の修正イメージ
 def preprocess_audio(file_bytes):
-    y, sr = librosa.load(io.BytesIO(file_bytes), sr=16000)
-    mel_spect = librosa.feature.melspectrogram(y=y, sr=sr, n_fft=1024, hop_length=512, n_mels=128)
-    mel_spect_db = librosa.power_to_db(mel_spect, ref=np.max)
-    feature_tensor = torch.tensor(mel_spect_db, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
-    return feature_tensor
+    # 1. 音声のロード
+    y, sr = librosa.load(file_bytes, sr=16000)
+    
+    # 2. メルスペクトログラム変換
+    mel = librosa.feature.melspectrogram(y=y, sr=sr, n_fft=1024, hop_length=512, n_mels=128)
+    log_mel = librosa.power_to_db(mel, ref=np.max)
+    
+    # 🔥【★超重要★】Colabと完全に同じMin-Max正規化をここに挿入！
+    log_mel = (log_mel - log_mel.min()) / (log_mel.max() - log_mel.min() + 1e-6)
+    
+    # 3. テンソル化とリサイズ
+    tensor = torch.tensor(log_mel, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
+    tensor_resized = F.interpolate(tensor, size=(224, 224), mode='bilinear', align_corners=False)
+    
+    return tensor_resized
 
 # --- 4. 予測エンドポイント ---
 @app.post("/predict")
